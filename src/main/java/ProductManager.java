@@ -13,10 +13,19 @@ public class ProductManager {
         Product[] result = new Product[0]; // тут будем хранить подошедшие запросу продукты
         for (Product product : repository.getItems()) {
             if (matches(product, text)) {
-                result[result.length + 1] = product;
+                result = addToProductArray(result, product);
             }
         }
         return result;
+    }
+    
+    public Product[] addToProductArray(Product[] items, Product item) {
+        Product[] tmp = new Product[items.length + 1];
+        for (int i = 0; i < items.length; i++) {
+            tmp[i] = items[i];
+        }
+        tmp[tmp.length - 1] = item;
+        items = tmp;
     }
 
     public boolean matches(Product product, String search) {
